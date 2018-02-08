@@ -2,7 +2,7 @@
 # @Author: Aswin Sivaraman
 # @Date:   2018-02-07 13:08:36
 # @Last Modified by:   Aswin Sivaraman
-# @Last Modified time: 2018-02-07 13:46:10
+# @Last Modified time: 2018-02-08 01:39:25
 
 """
 The Bark scale is a psychoacoustical scale proposed by Eberhard Zwicker in 1961.
@@ -106,7 +106,7 @@ _zupper = {
 def hz2z(hz):
 	return _z[hz]
 
-def z2hz(z,boundary="lower"):
+def z2hz(z, boundary="lower"):
     if boundary is "upper":
         return _zupper[z]
     else:
@@ -118,5 +118,11 @@ def z2hz_lower(z):
 def z2hz_upper(z):
     return _zupper[z]
 
-def hz2bin(hz, sampling_rate=44100, fft_size=512):
-    return int(hz*2*fft_size/sampling_rate)
+def hz2bin(hz, sr=44100, fft_size=512):
+    return int(hz*fft_size/sr)
+
+def bin2hz(k, sr=44100, fft_size=512):
+    return int(k*sr/fft_size)
+
+def bin2z(k, sr=44100, fft_size=512):
+    return hz2z(bin2hz(k, sr, fft_size))

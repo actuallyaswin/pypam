@@ -46,3 +46,6 @@ pip-delete-this-directory.txt
 
 # mypy
 .mypy_cache/
+
+data/
+*.png
