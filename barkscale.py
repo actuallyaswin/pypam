@@ -2,7 +2,7 @@
 # @Author: Aswin Sivaraman
 # @Date:   2018-02-07 13:08:36
 # @Last Modified by:   Aswin Sivaraman
-# @Last Modified time: 2018-02-08 01:39:25
+# @Last Modified time: 2018-02-08 14:39:37
 
 """
 The Bark scale is a psychoacoustical scale proposed by Eberhard Zwicker in 1961.
@@ -103,14 +103,23 @@ _zupper = {
     24: 15499
 }
 
-def hz2z(hz):
-	return _z[hz]
+def hz2z(hz, traunmuller=False):
+    if traunmuller:
+        # Hartmut Traunmuller conversion
+        return ((26.81*hz)/(1960+hz)-0.53)
+    return _z[hz]
 
-def z2hz(z, boundary="lower"):
+def z2hz(z, boundary="lower", traunmuller=False):
+    if traunmuller:
+        # Hartmut Traunmuller inverse
+        return (1960/((26.81/(z+0.53))-1))
     if boundary is "upper":
         return _zupper[z]
     else:
         return _zlower[z]
+
+def z2bin(z, boundary="lower", traunmuller=False, sr=44100, fft_size=512):
+    return hz2bin(z2hz(z, traunmuller=traunmuller), sr=sr, fft_size=fft_size)
 
 def z2hz_lower(z):
     return _zlower[z]
@@ -124,5 +133,5 @@ def hz2bin(hz, sr=44100, fft_size=512):
 def bin2hz(k, sr=44100, fft_size=512):
     return int(k*sr/fft_size)
 
-def bin2z(k, sr=44100, fft_size=512):
-    return hz2z(bin2hz(k, sr, fft_size))
+def bin2z(k, sr=44100, fft_size=512, traunmuller=False):
+    return hz2z(bin2hz(k, sr, fft_size), traunmuller)
