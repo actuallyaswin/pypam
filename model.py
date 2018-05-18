@@ -3,7 +3,7 @@
 # @Author: Aswin Sivaraman
 # @Email: aswin.sivaraman@gmail.com
 # @Last Modified by:   Aswin Sivaraman
-# @Last Modified time: 2018-02-26 01:51:00
+# @Last Modified time: 2018-05-18 17:04:51
 
 __description__ = 'Applies a psychoacoustic model to a WAV file.'
 
@@ -39,7 +39,7 @@ def MPEG1(filepath,fft_size,overlap,zeropad=False,savedata=False,saveplot=False,
     frames = 1 + floor((len(data)-fft_size)/hop)
 
     # ======================================================= #
-    ## Step 1 — Spectral Analysis and SPL Normalization
+    ## Step 1 -- Spectral Analysis and SPL Normalization
     # ======================================================= #
     num_bins = fft_size//2+1
 
@@ -73,7 +73,7 @@ def MPEG1(filepath,fft_size,overlap,zeropad=False,savedata=False,saveplot=False,
         print(">> Estimated the power spectral density")
 
     # ======================================================= #
-    ## Step 2 — Identification of Tonal and Noise Maskers
+    ## Step 2 -- Identification of Tonal and Noise Maskers
     # ======================================================= #
 
     num_criticalbands = hz2z(sample_rate//2)-1
@@ -164,7 +164,7 @@ def MPEG1(filepath,fft_size,overlap,zeropad=False,savedata=False,saveplot=False,
         plt.show()
 
     # ======================================================= #
-    ## Step 3 — Decimation and Reorganization of Maskers
+    ## Step 3 -- Decimation and Reorganization of Maskers
     # ======================================================= #
 
     if step > 2:
@@ -285,7 +285,7 @@ def MPEG1(filepath,fft_size,overlap,zeropad=False,savedata=False,saveplot=False,
             plt.show()
 
     # ======================================================= #
-    ## Step 4 — Calculation of Individual Masking Thresholds
+    ## Step 4 -- Calculation of Individual Masking Thresholds
     # ======================================================= #
 
     if step > 3:
@@ -335,7 +335,7 @@ def MPEG1(filepath,fft_size,overlap,zeropad=False,savedata=False,saveplot=False,
         print(">> Computed individual tonal & noise masker thresholds")
 
     # ======================================================= #
-    ## Step 5 — Calculation of Global Masking Thresholds
+    ## Step 5 -- Calculation of Global Masking Thresholds
     # ======================================================= #
 
     if step > 4:
@@ -359,7 +359,7 @@ def MPEG1(filepath,fft_size,overlap,zeropad=False,savedata=False,saveplot=False,
         print(">> Computed global masking threshold")
 
     # ======================================================= #
-    ## Step 6 — Generate Psychoacoustic Weights
+    ## Step 6 -- Generate Psychoacoustic Weights
     # ======================================================= #
 
     if step > 5:
